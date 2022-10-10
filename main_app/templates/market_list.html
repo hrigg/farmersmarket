@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Markets{% endblock  %}
+
+{% block content %}
+
+<h1 class="title pt-5">Farmer's Markets</h1>
+<div class="gallery">
+  {% for market in markets %}
+  <a href="">
+      <div class="card-header">
+        <p class="card-header-title place">{{market.place}}</p>
+      </div>
+  </a>
+	{% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Markets Available</p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
