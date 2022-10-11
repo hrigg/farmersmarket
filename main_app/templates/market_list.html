@@ -6,13 +6,52 @@
 {% block content %}
 
 <h1 class="title pt-5">Farmer's Markets</h1>
+<form class="mb-5" method="get">
+    <div class="field has-addons">
+      <div class="control">
+        <!--  Our input will search by name of artist  -->
+        <input class="input" type="text" name="name" placeholder="name" />
+      </div>
+      <div class="control">
+        <input class="button is-success" type="submit" value="Search" />
+      </div>
+    </div>
+    <!--  This anchor tag will redirect back to artist list without a query param -->
+    <!-- <a class="button is-dark" href="{% url 'market_list' %}">Clear Search</a> -->
+  </form>
+  <div class="field">
+    <label class="label">Filter by County</label>
+    <div class="control">
+      <div class="select">
+        <select>
+        {% for market in markets %}
+          <option>{{market.county}}</option>
+        {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
 <div class="gallery">
   {% for market in markets %}
-  <a href="">
+ 
+    {% if market.state == MD %}
+  
+ MD: 
+  {% else %}
+  <a href="{% url 'market_detail' market.pk %}">
+    <div class="card">
+        <div class="card-image">
+          <figure class="image is-square">
+            <img src="{{market.image}}" alt="{{market.name}}" />
+          </figure>
+        </div>
       <div class="card-header">
-        <p class="card-header-title place">{{market.place}}</p>
+        <p class="card-header-title place">{{market.name}}</p>
+        <p class="card-header-title place">{{market.day}}'s {{market.season}}</p>
       </div>
+    </div>
   </a>
+  {% endif %}
 	{% empty %}
   <article class="message">
     <div class="message-header">

@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %} 
+{% block content %}
+
+
+<h1>New Farmer's Market</h1>
+
+<form method="post">
+<!-- Security Feature  -->
+  {% csrf_token %} 
+<!--  Generate inputs  -->
+  {{form.as_p}} 
+<!--  Submit form  -->
+  <input type="submit" value="Add" />
+</form>
+
+{% endblock %}
+ 

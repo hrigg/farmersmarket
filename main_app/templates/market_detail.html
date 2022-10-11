@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="detail_page">
+<div class="detail__img">
+    <img src="{{market.image}}" alt="{{market.name}}" />
+</div>
+<div class="detail__name">
+    <h1 class="title">{{market.name}}</h1>
+</div>
+<div class="detail__container">
+    <div class="buttons">
+        <a href="{% url 'market_update' market.pk %}" class="button is-info">
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+        </a>
+        <a href="" class="button is-danger">
+            <span class="icon">
+                <i class="fas fa-trash-alt"></i>
+            </span>
+        </a>
+    </div>
+    <div class="detail__about">
+        <h4 class="title is-4">Details</h4>
+        <p>{{market.day}}'s at {{market.times}}</p>
+        <p>Location: {{market.location}}</p>
+        <p>Season: {{market.season}}</p>
+      
+    </div>
+</div>
+<hr>
+<h1 class="title">Vendors</h1>
+<span class="icon is-small">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+</span>
+
+<div class="vendor_list">
+
+    {% for vendor in market.vendors.all %}
+  
+    <div class="vendor_card">
+    <a href="{% url 'vendor_detail' vendor.pk %}">
+    <h2>{{vendor.name}} </h2>
+    <div class="vendor_img">
+        <img src="{{vendor.image}}" alt="{{vendor.name}}" />
+    </div>
+    </a>
+    </div>
+    
+
+{% endfor %}
+</div>
+        </div>
+    
+
+
+
+
+</div>
+
+{% endblock %}
