@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from .models import Market, Vendor
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 
 class Home(TemplateView):
@@ -54,6 +54,11 @@ class MarketUpdate(UpdateView):
     template_name = "market_update.html"
     def get_success_url(self):
         return reverse('market_detail', kwargs={'pk': self.object.pk})
+
+class MarketDelete(DeleteView):
+    model = Market
+    template_name = "market_delete_confirmation.html"
+    success_url = "/markets/"
 
 class VendorCreate(CreateView, View):
     model= Vendor
