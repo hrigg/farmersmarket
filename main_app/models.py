@@ -9,6 +9,17 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Product(models.Model):
+    name= models.CharField(max_length=100)
+    price= models.IntegerField(default=1)
+    description= models.TextField(max_length=300)
+    vendor= models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
+
+    def __str__(self):
+        return self.name 
+
 class Market(models.Model):
     name= models.CharField(max_length=100)
     day= models.CharField(max_length=100, default='Saturday')
