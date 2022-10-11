@@ -1,14 +1,18 @@
 from django.db import models
-
+from django.contrib.auth.models import User 
 
 class Vendor(models.Model):
     name=models.CharField(max_length=150)
     description= models.TextField(max_length=500)
     website=models.CharField(max_length=150)
     image= models.CharField(max_length=300, default='https://media.istockphoto.com/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
+
 
 
 class Product(models.Model):
@@ -16,6 +20,8 @@ class Product(models.Model):
     price= models.IntegerField(default=1)
     description= models.TextField(max_length=300)
     vendor= models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
+    image= models.CharField(max_length=300, default='https://media.istockphoto.com/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name 

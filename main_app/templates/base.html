@@ -26,9 +26,27 @@
             </div>
             <div class="navbar-menu navbar-start">
                 <a class="navbar-item" href="/about">About</a>
-                <a class="navbar-item" href="/markets">All Markets</a>
-                <a class="navbar-item" href="/markets/new">Add Market</a>
+                <a class="navbar-item" href="/markets">Markets</a>
+                <a class="navbar-item" href="/vendors">Vendors</a>
             </div>
+            {% if user.is_authenticated %}
+                <div class="navbar-menu navbar-end">
+                    <span class="navbar-item">Welcome: {{user.username}}</span>
+                    <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+            {% else %}
+                <div class="navbar-menu navbar-end">
+                    <a class="navbar-item" href="{% url 'login' %}">Log In</a>
+                    <a class="navbar-item" href="{% url 'signup' %}">Sign Up</a>
+                </div>
+            {% endif %}
+
+           {% if user.is_authenticated and user.is_staff %}
+            <a class="navbar-item" href="/markets/new">Add Market</a>
+            <a class="navbar-item" href="/vendors/new">Add Vendor</a>
+            {% else %}
+            <a href=""></a>
+            {% endif %}
             <div class="navbar-menu navbar-end">
                 <!-- <a class="navbar-item" href="/vendors">Vendors</a> -->
             </div>

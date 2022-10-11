@@ -7,8 +7,10 @@
 <div class="detail__name">
     <h1 class="title">{{market.name}}</h1>
 </div>
+
 <div class="detail__container">
     <div class="buttons">
+        {% if user.is_authenticated and user.is_staff %}
         <a href="{% url 'market_update' market.pk %}" class="button is-info">
             <span class="icon">
                 <i class="fas fa-edit"></i>
@@ -25,9 +27,10 @@
         <p>{{market.day}}'s at {{market.times}}</p>
         <p>Location: {{market.location}}</p>
         <p>Season: {{market.season}}</p>
-      
+      {% endif %}
     </div>
 </div>
+
 <hr>
 <h1 class="title">Vendors</h1>
 <span class="icon is-small">
