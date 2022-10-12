@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login
@@ -8,8 +9,10 @@ from .models import Market, Vendor, Product
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 class Home(TemplateView):
@@ -53,6 +56,7 @@ class MarketDetail(DetailView):
 class VendorDetail(DetailView):
     model=Vendor
     template_name= 'vendor_detail.html'
+    
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context ['markets']= Market.objects.all()
@@ -66,6 +70,7 @@ class ProductDetail(DetailView):
         context ['vendor']= Vendor.objects.all()
         return context
 
+@method_decorator(staff_member_required, name='dispatch')
 class MarketCreate(CreateView):
     model= Market
     fields=['name', 'day','times','season', 'location','image','state','county']
@@ -84,7 +89,8 @@ class ProductCreate(View):
         Product.objects.create(name=name, image=image, description=description, vendor=vendor, price=price)
         return redirect('vendor_detail', pk=pk)
 
-   
+class AddNew(TemplateView):
+    template_name = "addnew.html"
 
 @method_decorator(login_required, name='dispatch')
 class MarketUpdate(UpdateView):
@@ -94,13 +100,23 @@ class MarketUpdate(UpdateView):
     def get_success_url(self):
         return reverse('market_detail', kwargs={'pk': self.object.pk})
 
+
+@method_decorator(staff_member_required, name='dispatch')
+# @user_passes_test(lambda u: u.groups.filter(name='Vendor').exists()
+class VendorUpdate(UpdateView):
+    model = Vendor
+    fields = ['name', 'website', 'description', 'image']
+    template_name = "vendor_update.html"
+    def get_success_url(self):
+        return reverse('vendor_detail', kwargs={'pk': self.object.pk})
+
 @method_decorator(login_required, name='dispatch')
 class MarketDelete(DeleteView):
     model = Market
     template_name = "market_delete_confirmation.html"
     success_url = "/markets/"
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(staff_member_required, name='dispatch')
 class VendorCreate(CreateView):
     model= Vendor
     fields=['name', 'description','image','website']

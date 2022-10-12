@@ -25,37 +25,6 @@
         <p>{{vendor.description}}</p>
       <a href='https://{{vendor.website}}' class="a"> Visit our Site: 🖥</a>
     </div>
-    <span>
-        <div class="dropdown">
-          <div class="dropdown-trigger">
-            <button
-              class="button"
-              aria-haspopup="true"
-              aria-controls="dropdown-menu"
-            >
-              <span>Add Market</span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              {% for market in markets %}
-          <!-- each playlist becomes a drop
-          down item with the ids needed to add to the join table  -->
-              <a
-                href="{% url 'market_vendor_assoc' market.pk vendor.pk %}?assoc=add"
-                class="dropdown-item"
-              >
-                {{ market.name}}
-              </a>
-              
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </span>
      
     <div class="product_container">
         <h2>Our Products:  </h2>
@@ -63,7 +32,7 @@
        
         {% for product in vendor.products.all %}
         <div class="one_product card">
-            <span><b>{{product.name}}</b> <a href=""><i class="fa fa-times a is-red" aria-hidden="true"></i> </a></span>
+            <span><b>{{product.name}}</b> <a href=""></a></span>
             <a href="{% url 'product_detail' product.pk %}">
              <img src="{{product.image}}" alt="{{product.name}}" class='product_image'/>
             </a>
@@ -71,46 +40,6 @@
     </div>
 
     {% endfor %}
-
-    <form class="mb-5" action="{% url 'product_create' vendor.pk %}" method="post">
-        {% csrf_token %}
-        <div class="field has-addons">
-            <div class="control">
-                <input
-                class="input"
-                type="text"
-                name="name"
-                placeholder="Name"
-                required />
-            </div>
-            <div class="control">
-                <input
-                class="input"
-                type="number"
-                name="price"
-                placeholder="Price"
-                required />
-            </div>
-            <div class="control">
-                <input
-                class="input"
-                type="text"
-                name="description"
-                placeholder="Description"
-                required />
-            </div>
-            <div class="control">
-                <input
-                class="input"
-                type="text"
-                name="image"
-                placeholder="Image URL"
-                required />
-            </div>
-            <div class="control">
-                <input class="button is-primary" type="submit" value="Add Product"/>
-            </div>
-        </div>
-    </form>
+  <p> Is this your page? Edit or update information <a href="{% url 'vendor_update' vendor.pk %}"> Here </a></p>
 </div>
 {% endblock %}

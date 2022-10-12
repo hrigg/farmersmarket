@@ -9,7 +9,7 @@
 <form class="mb-5" method="get">
     <div class="field has-addons">
       <div class="control">
-        <!--  Our input will search by name of artist  -->
+        
         <input class="input" type="text" name="name" placeholder="name" />
       </div>
       <div class="control">
@@ -20,13 +20,14 @@
     <!-- <a class="button is-dark" href="{% url 'market_list' %}">Clear Search</a> -->
   </form>
   <div class="field">
-    <label class="label">Filter by County</label>
+    <label class="label">Filter by State</label>
     <div class="control">
       <div class="select">
         <select>
-        {% for market in markets %}
-          <option>{{market.county}}</option>
-        {% endfor %}
+          <option disabled="true"> State</option>
+          <option value="MD"> MD </option>
+          <option value="VA"> VA </option>
+          <option value="DC"> DC </option> 
         </select>
       </div>
     </div>
