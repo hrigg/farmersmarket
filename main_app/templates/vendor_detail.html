@@ -22,14 +22,16 @@
     </div> -->
     <div class="detail__about">
         <h4 class="title is-4">Details</h4>
-        <p>{{vendor.description}}</p>
+        <p class="vendor_bio">{{vendor.description}}</p>
       <a href='https://{{vendor.website}}' class="a"> Visit our Site: 🖥</a>
     </div>
-     
-    <div class="product_container">
+     <br> <br>
+    <div class="product_note">
         <h2>Our Products:  </h2>
+    </div>
         <h3>(availability may vary at market)</h3>
-       
+
+        <div class="product_container">
         {% for product in vendor.products.all %}
         <div class="one_product card">
             <span><b>{{product.name}}</b> <a href=""></a></span>

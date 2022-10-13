@@ -45,17 +45,20 @@ p {
     text-align: center;
 }
 .vendor_list{
- 
-    padding: 20px
+    padding: 20px;
+    margin: 20px;
+    display:inline-block;
 }
 .vendor_card{
     background-color: rgb(65, 211, 234);
     color: black;
+    display:inline-block;
     max-width: 300px;
     max-height: 300px;
     border-radius: 25%;
     overflow: hidden;
-    text-align: center;
+    margin: 20px;
+   
 }
 
 .vendor_img{
@@ -142,12 +145,17 @@ body {
     margin-top: 500px;
   }
 
+  .product_container{
+    display:inline-block;
+  }
+
   .one_product{
     max-width: 300px;
     max-height: 300px;
     padding: 10px;
     margin: 10px; 
     overflow: hidden;
+    display: inline-block;
   }
 
 .product_image{
@@ -161,4 +169,16 @@ a{
 }
 .admin_page{
     text-align: center;
+}
+
+.home{
+    text-align: center;
+}
+
+.vendor_bio{
+    font-size: 20px;
+}
+
+.product_note{
+    font-size: 20px;
 }
