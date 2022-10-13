@@ -40,14 +40,6 @@ class MarketList(TemplateView, View):
         else: 
             context['markets']=Market.objects.all()
         return context
-
-        
-        
- 
-    def get_queryset(self):
-        qs= super().get_queryset()
-        return qs.filter(name__icontains=self.kwargs['VA'])
-    
     
 
 
@@ -125,6 +117,10 @@ class VendorUpdate(UpdateView):
     model = Vendor
     fields = ['name', 'website', 'description', 'image']
     template_name = "vendor_update.html"
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context ['markets']= Market.objects.all()
+        return context
     def get_success_url(self):
         return reverse('vendor_detail', kwargs={'pk': self.object.pk})
 
