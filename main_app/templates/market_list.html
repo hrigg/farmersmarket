@@ -16,24 +16,14 @@
         <input class="button is-success" type="submit" value="Search" />
       </div>
     </div>
-    
+</form>
+  <div>
+    <button class="button"> <a href='http://localhost:8000/markets/?state=DC'> DC</a></button>
+    <button class="button"> <a href='http://localhost:8000/markets/?state=MD'> MD</a></button>
+    <button class="button"> <a href='http://localhost:8000/markets/?state=VA'> VA</a></button>
     <a class="button is-dark" href="{% url 'market_list' %}">Clear Search</a>
-  </form>
-  <div class="field">
-    <label class="label">Filter by State</label>
-    <div class="control">
-    <form method="get">
-      <div class="select">
-        <select>
-          <option disabled="true"> State</option>
-          <option value="MD" name="state" > MD </option>
-          <option value="VA" name="state" > VA </option>
-          <option value="DC" name="state" > DC </option> 
-        </select>
-      </div>
-    </form>
-    </div>
   </div>
+  
 <div class="gallery">
   {% for market in markets %}
  

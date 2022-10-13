@@ -25,28 +25,28 @@ class MarketList(TemplateView, View):
     template_name= 'market_list.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-
+        state=self.request.GET.get('state')
         name=self.request.GET.get('name')
         if name != None:
             context['markets']= Market.objects.filter(name__icontains=name)
+        elif state == "VA":
+            context['markets']= Market.objects.filter(state__icontains=state)
+        elif state== 'MD': 
+            context['markets']= Market.objects.filter(state__icontains=state)
+        elif state== 'DC': 
+            context['markets']= Market.objects.filter(state__icontains=state)
+        elif state== '': 
+            context['markets']= Market.objects.filter(state__icontains=state)
         else: 
             context['markets']=Market.objects.all()
         return context
 
-    # def get_context_data(self, **kwargs):
-    #     context=super().get_context_data(**kwargs)
-    #     state=self.request.GET.get('state')
-    #     if state == "VA":
-    #         context['markets']= Market.objects.filter(state__icontains='VA')
-    #     elif state== 'MD': 
-    #         context['markets']= Market.objects.filter(state__icontains='MD')
-    #     else: 
-    #         context['markets']= Market.objects.filter(state__icontains='')
-    #     return context
+        
+        
  
     def get_queryset(self):
         qs= super().get_queryset()
-        return qs.filter(state__icontains=self.kwargs['VA'])
+        return qs.filter(name__icontains=self.kwargs['VA'])
     
     
 
