@@ -21,7 +21,7 @@ class Home(TemplateView):
 class About(TemplateView):
     template_name= 'about.html'
 
-class MarketList(TemplateView):
+class MarketList(TemplateView, View):
     template_name= 'market_list.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
@@ -32,6 +32,24 @@ class MarketList(TemplateView):
         else: 
             context['markets']=Market.objects.all()
         return context
+
+    # def get_context_data(self, **kwargs):
+    #     context=super().get_context_data(**kwargs)
+    #     state=self.request.GET.get('state')
+    #     if state == "VA":
+    #         context['markets']= Market.objects.filter(state__icontains='VA')
+    #     elif state== 'MD': 
+    #         context['markets']= Market.objects.filter(state__icontains='MD')
+    #     else: 
+    #         context['markets']= Market.objects.filter(state__icontains='')
+    #     return context
+ 
+    def get_queryset(self):
+        qs= super().get_queryset()
+        return qs.filter(state__icontains=self.kwargs['VA'])
+    
+    
+
 
 class VendorList(TemplateView):
     template_name= 'vendor_list.html'
